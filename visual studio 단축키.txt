@@ -1,0 +1,49 @@
+﻿
+ctrl + m + o : 함수접기
+
+ctrl + k + d : 코드 정리 (with clang)
+
+ctrl + alt + 좌클릭 : 멀티 커서 선택
+
+shift + alt + 좌클릭 : 멀티 커서 범위 선택
+
+ctrl + enter : 커서 고정하고 개행
+
+/// : 함수 설명 요약
+
+alt + o : cpp <-> h 파일 스위칭
+
+ctrl + - : 이전 커서 탐색
+
+ctrl + 좌우 화살표 : 단어단위 이동
+
+home 키 : 해당라인 맨 앞
+
+end 키 : 해당라인 맨 뒤
+
+home + shift : 커서 기준 앞으로 라인 드래그
+
+home + end : 커서 기준 뒤로 라인 드래그
+
+단어 더블클릭 다음 f2 : 이름 바꾸기
+
+드래그 후 ctl + k + c : 범위지정 주석
+
+ctrl + k + u : 주석 해제
+
+alt + q : 해당 파일 탐색기 폴더 열기
+
+ctrl + shift + f9 : 모든 중단점 제거
+
+alt + shift + . : vscode 에서 ctrl + d랑 같은 기능
+
+
+ctrl + shift + p 명령팔레트 diff
+
+
+
+
+
+
+
+﻿

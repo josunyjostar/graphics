@@ -1,0 +1,83 @@
+1. 기하정보 만들고 (vertex, index)
+2. 각각의 vertex buffer , index buffer를 장오후 5:03 2024-08-05치를 통해 생성
+3. vertex의 input layout 을 작성 및 생성
+4. 각각의 shader 작성 및 생성 (default vertex shader, pixel shader)
+5. 필요한 경우 shader에 전달할 constant buffer, shader resource 및 sampler 작성 및 생성
+
+6. constant buffer가 잇는 경우 매 프레임마다 update하고 그래픽카드로 전달해주어야함 (map,unmap)
+
+7. rendering시 장치에 필요한 정보를 셋팅
+vertex,index buffer 셋팅,
+vertex InputLayout 셋팅 
+각 constant buffer
+각 셰이더 셋팅 
+ps shader resource 셋팅
+ps sampler 셋팅
+
+해당 rasterize, topology, render target, depth stencil buffer 등등
+
+8 모두 셋팅되었으면 DrawIndexed 호출 
+
+---
+
+dx11에서 view라는 단어는 관점으로 해석해야함
+
+RenderTargetView - 렌더링하는 관점 
+ShaderResourceView - 셰이더의 리소스로 사용하는 관점
+
+
+---
+
+행렬의 각 열 (행이 아닌 열)
+1열은 right vector
+2열은 up vector
+3열은 look vector
+임
+
+    Matrix view = Matrix(m_rightDir, m_upDir, m_viewDir).Transpose();
+    Matrix reverse= Matrix::CreateTranslation(-m_position) * view;
+    
+    Matrix answer = Matrix::CreateTranslation(-m_position) *
+                      Matrix::CreateRotationY(-m_yaw) *
+                      Matrix::CreateRotationX(m_roll);
+
+두 공식이 동일한 결과를 가져옴
+
+----
+텍스쳐랑 렌더타겟을 연결해서 해당 텍스쳐를 다른 텍스쳐로 복사 할 수 있음
+CreateRenderTargetView(m_indexTexture.Get(), nullptr,m_indexRenderTargetView.GetAddressOf());
+ResolveSubresource(m_indexTempTexture.Get(), 0,m_indexTexture.Get(),0,DXGI_FORMAT_R8G8B8A8_UNORM)
+ResolveSubresource는 2DMS -> 2D로 바꿔주는 과정임
+----
+좌표계 변환 정리
+Model coordinates (버텍스 버퍼에 들어있는 좌표들)
+-> [Model to World matrix] 강의 뒤에서는 월드 행렬로 부름
+-> World coordinates
+-> [World to View matrix] 
+-> Camera Coordinates (View coordinates)
+-> [Projection Matrix]
+-> Homogeneous Coordinates (Vertex shader의 출력), 이때 projection matrix의 특징에 의해 projection space (=homogeneous clip space)로의 변환으로 해석
+
+<여기서부터 Rasterizer stage 시작>
+
+-> w를 활용해서 clipping을 더 빠르게 처리 (DX가 내부적으로)
+-> [Perspective divide] (DX가 내부적으로)
+-> NDC (DX가 내부적으로)
+-> 픽셀 위치에 대해 인터폴레이션 값 생성 (DX가 내부적으로)
+
+<Rasterizer stage 끝>
+-> pixel shader stage
+
+주의점은 projMatrix가 곱해진 후 좌표계는 homogeneous clip space가 되는거고
+Rasterizer를 거친 후에 NDC가 되는것임 
+그리고 NDC의 near/far는 보통 0~1이니까 3차원으로 보는게 맞음
+
+
+
+---
+q = Quaternion::FromToRotation(prevVector, currentVector);
+화면에서 찍히는 포인트와 포인트를 기준으로 보지말고 
+물체를 기준으로 회전을 할 벡터들이 매개변수로 전달되야함
+
+
+

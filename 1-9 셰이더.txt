@@ -1,0 +1,3 @@
+groupshared D3D11에서 최대 크기는 32kb입니다. 
+
+컴퓨트 셰이더는 SampleLevel 사용해야함

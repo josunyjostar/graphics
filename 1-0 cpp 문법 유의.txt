@@ -1,0 +1,13 @@
+class의 멤버함수는 콜백함수로 등록 불가
+
+template cpp에 구현 작성할거면
+explicit instantiation 작성해줘야함
+ex) 이렇게 다 일일히 들어올만한 형태에 대해 미리 함수시그니쳐 타입을 다 정해두어야함
+template void MyArray<char>::print();
+template void MyArray<int>::print();
+template void MyArray<VERTEX>::print();
+
+외부 라이브러리를 .h에 하냐 .cpp에 하냐
+
+h에서 인터페이스에 구현에 필요한 외부라이브러리가 있으면 .h
+아닌경우 다 .cpp

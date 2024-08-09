@@ -1,0 +1,16 @@
+affine transformation - 애파인 변환의 의미는
+선형 변환과 이동을 하나로 표현한 것임
+
+자식을 부모의 좌표계로 변환하려면 
+자식 position * 부모 SRT = 부모 기준좌표계로 자식을 표현 (부모의 상대적인 좌표계가 아님)
+
+3D 모델에서 arm을 루트 기준으로 변환하려면 
+arm의 부모기준 vertext 좌표 * 부모 SRT 
+
+월드 좌표계의 나무 A를 카메라 좌표계의 상대 좌표계 변환하려면 
+월드기준 나무 position  * 카메라의 역행렬 
+
+XMMatrixLookAtLH은 카메라의 역행렬과 동일한지 확인 할 것
+
+
+model (local) -> world -> view -> projection -> NDC
